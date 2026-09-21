@@ -1,6 +1,10 @@
 import streamlit as st
 from pathlib import Path
 
+# =========================================================
+# PAGE CONFIG
+# =========================================================
+
 st.set_page_config(
     page_title="LiveMind AI",
     page_icon="🎥",
@@ -8,41 +12,50 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# =========================
-# ACCOUNT DATA
-# =========================
+# =========================================================
+# SAMPLE DATA
+# =========================================================
 
 ACCOUNT_ID = "LM-784521"
-BALANCE = 402_580.00
+BALANCE = 402580.00
+
 REQUIRED_STREAMS = 2
 COMPLETED_STREAMS = 0
+
 DAYS_LEFT = 30
 MIN_SUPPORT = 5.00
 
-# =========================
-# CUSTOM CSS
-# =========================
 
-st.markdown("""
+# =========================================================
+# CUSTOM CSS
+# =========================================================
+
+st.markdown(
+    """
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url(
+'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
+);
 
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
+html,
+body,
+[class*="css"] {
+    font-family: "Inter", sans-serif;
 }
 
 .stApp {
+
     background:
         radial-gradient(
             circle at 10% 0%,
-            rgba(85,70,180,.22),
-            transparent 30%
+            rgba(90, 70, 220, 0.25),
+            transparent 32%
         ),
         radial-gradient(
             circle at 90% 10%,
-            rgba(0,190,255,.12),
-            transparent 28%
+            rgba(0, 190, 255, 0.13),
+            transparent 30%
         ),
         #070912;
 
@@ -50,105 +63,149 @@ html, body, [class*="css"] {
 }
 
 .block-container {
+
     max-width: 1400px;
+
     padding-top: 1.5rem;
     padding-bottom: 3rem;
 }
 
-/* =========================
-   HEADER
-========================= */
 
-.hero {
-    border: 1px solid rgba(150,170,255,.16);
-    border-radius: 24px;
-    padding: 28px 30px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(25,31,65,.95),
-            rgba(10,13,28,.95)
-        );
-
-    box-shadow:
-        0 18px 60px rgba(0,0,0,.35);
-}
+/* =========================================================
+   BRAND
+========================================================= */
 
 .brand {
+
     font-size: 32px;
+
     font-weight: 800;
+
     letter-spacing: -1px;
+
+    color: #ffffff;
 }
 
 .ai {
+
     color: #7dd3fc;
 }
 
 .badge {
+
     display: inline-block;
-    margin-left: 10px;
+
+    margin-left: 9px;
+
     padding: 5px 10px;
 
     border-radius: 999px;
 
     font-size: 10px;
+
     font-weight: 800;
-    letter-spacing: .8px;
+
+    letter-spacing: 0.7px;
 
     color: #dbeafe;
 
-    background: rgba(59,130,246,.16);
+    background: rgba(59, 130, 246, 0.16);
 
-    border:
-        1px solid
-        rgba(96,165,250,.35);
+    border: 1px solid rgba(96, 165, 250, 0.35);
 }
 
 .sub {
+
     color: #9ca9c8;
+
     margin-top: 7px;
+
+    font-size: 14px;
 }
 
-/* =========================
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    border: 1px solid rgba(150, 170, 255, 0.16);
+
+    border-radius: 24px;
+
+    padding: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25, 31, 65, 0.96),
+            rgba(10, 13, 28, 0.96)
+        );
+
+    box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.section-title {
+
+    font-size: 21px;
+
+    font-weight: 750;
+
+    margin-top: 26px;
+
+    margin-bottom: 13px;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
    CARDS
-========================= */
+========================================================= */
 
 .card {
+
     background:
         linear-gradient(
             145deg,
-            rgba(22,27,50,.96),
-            rgba(11,14,29,.96)
+            rgba(22, 27, 50, 0.97),
+            rgba(11, 14, 29, 0.97)
         );
 
     border:
-        1px solid
-        rgba(145,160,210,.13);
+        1px solid rgba(145, 160, 210, 0.14);
 
     border-radius: 20px;
 
     padding: 22px;
 
-    min-height: 150px;
+    min-height: 145px;
 
     box-shadow:
-        0 12px 35px
-        rgba(0,0,0,.22);
+        0 12px 35px rgba(0, 0, 0, 0.22);
 }
 
 .label {
+
     color: #8996b7;
 
-    font-size: 13px;
+    font-size: 12px;
 
     margin-bottom: 9px;
 
-    letter-spacing: .3px;
+    letter-spacing: 0.4px;
 }
 
 .value {
-    font-size: 30px;
+
+    font-size: 29px;
 
     font-weight: 800;
 
@@ -156,47 +213,41 @@ html, body, [class*="css"] {
 }
 
 .green {
+
     color: #67e8a5;
 }
 
 .blue {
+
     color: #7dd3fc;
 }
 
 .purple {
+
     color: #c4b5fd;
 }
 
 .orange {
+
     color: #fdba74;
 }
 
 .small {
+
     color: #8491b1;
 
     font-size: 12px;
 
-    margin-top: 6px;
+    margin-top: 7px;
 }
 
-/* =========================
-   SECTION TITLES
-========================= */
 
-.section-title {
-    font-size: 21px;
-
-    font-weight: 750;
-
-    margin:
-        24px 0 12px;
-}
-
-/* =========================
-   NOTICE
-========================= */
+/* =========================================================
+   REQUIREMENT NOTICE
+========================================================= */
 
 .notice {
+
     border-radius: 18px;
 
     padding: 20px;
@@ -204,22 +255,25 @@ html, body, [class*="css"] {
     background:
         linear-gradient(
             90deg,
-            rgba(91,72,180,.20),
-            rgba(39,111,160,.13)
+            rgba(91, 72, 180, 0.20),
+            rgba(39, 111, 160, 0.13)
         );
 
     border:
-        1px solid
-        rgba(139,125,255,.22);
+        1px solid rgba(139, 125, 255, 0.22);
 }
 
 .notice-title {
+
     font-weight: 750;
 
     font-size: 17px;
+
+    color: #ffffff;
 }
 
 .notice-text {
+
     color: #b8c2dc;
 
     line-height: 1.65;
@@ -227,83 +281,98 @@ html, body, [class*="css"] {
     margin-top: 7px;
 }
 
-/* =========================
-   STREAM CARD
-========================= */
+
+/* =========================================================
+   STREAM CARDS
+========================================================= */
 
 .stream-card {
+
     border:
-        1px solid
-        rgba(145,160,210,.13);
+        1px solid rgba(145, 160, 210, 0.14);
 
     border-radius: 18px;
 
     padding: 20px;
 
     background:
-        rgba(16,20,39,.88);
+        rgba(16, 20, 39, 0.90);
 }
 
-/* =========================
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+div.stButton > button {
+
+    border-radius: 12px;
+
+    font-weight: 700;
+
+    min-height: 45px;
+}
+
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer {
+
     text-align: center;
 
     color: #687493;
 
     font-size: 11px;
 
-    margin-top: 30px;
+    margin-top: 35px;
 
-    padding-top: 18px;
+    padding-top: 20px;
 
     border-top:
-        1px solid
-        rgba(145,160,210,.10);
+        1px solid rgba(145, 160, 210, 0.10);
 }
 
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 
-# =========================
-# HEADER
-# =========================
+# =========================================================
+# HEADER / LOGO
+# =========================================================
 
-logo = Path("Logo.png")
+logo_path = Path("Logo.png")
 
-if logo.exists():
+if logo_path.exists():
 
-    col1, col2 = st.columns(
+    logo_col, brand_col = st.columns(
         [1, 7],
         vertical_alignment="center"
     )
 
-    with col1:
+    with logo_col:
+
         st.image(
-            str(logo),
-            width=90
+            str(logo_path),
+            width=85
         )
 
-    with col2:
+    with brand_col:
 
         st.markdown(
             """
-            <div class="brand">
-                LiveMind
-                <span class="ai">AI</span>
+<div class="brand">
+    LiveMind <span class="ai">AI</span>
+    <span class="badge">PROTOTYPE</span>
+</div>
 
-                <span class="badge">
-                    PROTOTYPE
-                </span>
-            </div>
-
-            <div class="sub">
-                Smart Live Streaming & Creator Dashboard
-            </div>
-            """,
+<div class="sub">
+    Smart Live Streaming & Creator Dashboard
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -311,23 +380,19 @@ else:
 
     st.markdown(
         """
-        <div class="hero">
+<div class="hero">
 
-            <div class="brand">
-                LiveMind
-                <span class="ai">AI</span>
+    <div class="brand">
+        LiveMind <span class="ai">AI</span>
+        <span class="badge">PROTOTYPE</span>
+    </div>
 
-                <span class="badge">
-                    PROTOTYPE
-                </span>
-            </div>
+    <div class="sub">
+        Smart Live Streaming & Creator Dashboard
+    </div>
 
-            <div class="sub">
-                Smart Live Streaming & Creator Dashboard
-            </div>
-
-        </div>
-        """,
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -335,9 +400,9 @@ else:
 st.write("")
 
 
-# =========================
+# =========================================================
 # SIDEBAR
-# =========================
+# =========================================================
 
 with st.sidebar:
 
@@ -391,216 +456,237 @@ with st.sidebar:
     )
 
 
-# =========================
-# MAIN HERO
-# =========================
+# =========================================================
+# HERO SECTION
+# =========================================================
 
 st.markdown(
     f"""
-    <div class="hero">
+<div class="hero">
 
-        <div class="label">
-            CREATOR ACCOUNT · {ACCOUNT_ID}
-        </div>
-
-        <div style="
-            font-size:38px;
-            font-weight:850;
-            letter-spacing:-1.5px;
-        ">
-            Welcome to your LiveMind AI dashboard
-        </div>
-
-        <div class="sub">
-            Manage live sessions, creator requirements
-            and account activity from one place.
-        </div>
-
+    <div class="label">
+        CREATOR ACCOUNT · {ACCOUNT_ID}
     </div>
-    """,
+
+    <div style="
+        font-size:36px;
+        font-weight:850;
+        letter-spacing:-1.5px;
+        color:#ffffff;
+    ">
+        Welcome to your LiveMind AI dashboard
+    </div>
+
+    <div class="sub">
+        Manage live sessions, creator requirements
+        and account activity from one place.
+    </div>
+
+</div>
+""",
     unsafe_allow_html=True
 )
 
 
-# =========================
+# =========================================================
 # ACCOUNT OVERVIEW
-# =========================
+# =========================================================
 
 st.markdown(
     '<div class="section-title">Account Overview</div>',
     unsafe_allow_html=True
 )
 
-a, b, c, d = st.columns(4)
+
+col1, col2, col3, col4 = st.columns(4)
 
 
-with a:
+# ---------------------------------------------------------
+# BALANCE
+# ---------------------------------------------------------
+
+with col1:
 
     st.markdown(
         f"""
-        <div class="card">
+<div class="card">
 
-            <div class="label">
-                ACCOUNT BALANCE
-            </div>
+    <div class="label">
+        ACCOUNT BALANCE
+    </div>
 
-            <div class="value green">
-                ${BALANCE:,.2f}
-            </div>
+    <div class="value green">
+        ${BALANCE:,.2f}
+    </div>
 
-            <div class="small">
-                Sample account figure
-            </div>
+    <div class="small">
+        Sample account figure
+    </div>
 
-        </div>
-        """,
+</div>
+""",
         unsafe_allow_html=True
     )
 
 
-with b:
+# ---------------------------------------------------------
+# STATUS
+# ---------------------------------------------------------
+
+with col2:
 
     st.markdown(
         """
-        <div class="card">
+<div class="card">
 
-            <div class="label">
-                FUNDS STATUS
-            </div>
+    <div class="label">
+        FUNDS STATUS
+    </div>
 
-            <div class="value orange">
-                LOCKED
-            </div>
+    <div class="value orange">
+        LOCKED
+    </div>
 
-            <div class="small">
-                Pending creator requirements
-            </div>
+    <div class="small">
+        Pending creator requirements
+    </div>
 
-        </div>
-        """,
+</div>
+""",
         unsafe_allow_html=True
     )
 
 
-with c:
+# ---------------------------------------------------------
+# STREAMS
+# ---------------------------------------------------------
+
+with col3:
 
     st.markdown(
         f"""
-        <div class="card">
+<div class="card">
 
-            <div class="label">
-                LIVE SESSIONS
-            </div>
+    <div class="label">
+        LIVE SESSIONS
+    </div>
 
-            <div class="value blue">
-                {COMPLETED_STREAMS} / {REQUIRED_STREAMS}
-            </div>
+    <div class="value blue">
+        {COMPLETED_STREAMS} / {REQUIRED_STREAMS}
+    </div>
 
-            <div class="small">
-                Required sessions
-            </div>
+    <div class="small">
+        Required sessions
+    </div>
 
-        </div>
-        """,
+</div>
+""",
         unsafe_allow_html=True
     )
 
 
-with d:
+# ---------------------------------------------------------
+# TIME
+# ---------------------------------------------------------
+
+with col4:
 
     st.markdown(
         f"""
-        <div class="card">
+<div class="card">
 
-            <div class="label">
-                TIME WINDOW
-            </div>
+    <div class="label">
+        TIME WINDOW
+    </div>
 
-            <div class="value purple">
-                {DAYS_LEFT} DAYS
-            </div>
+    <div class="value purple">
+        {DAYS_LEFT} DAYS
+    </div>
 
-            <div class="small">
-                Remaining window
-            </div>
+    <div class="small">
+        Remaining window
+    </div>
 
-        </div>
-        """,
+</div>
+""",
         unsafe_allow_html=True
     )
 
 
-# =========================
+# =========================================================
 # REQUIREMENT
-# =========================
+# =========================================================
 
 st.markdown(
     '<div class="section-title">Account Requirement</div>',
     unsafe_allow_html=True
 )
 
+
 st.markdown(
     f"""
-    <div class="notice">
+<div class="notice">
 
-        <div class="notice-title">
-            Complete {REQUIRED_STREAMS}
-            live sessions within {DAYS_LEFT} days
-        </div>
+    <div class="notice-title">
+        Complete {REQUIRED_STREAMS}
+        live sessions within {DAYS_LEFT} days
+    </div>
 
-        <div class="notice-text">
+    <div class="notice-text">
 
-            The account workflow shown here requires
-            two live sessions during the stated period.
+        The account workflow shown here requires
+        two live sessions during the stated period.
 
-            Each session can be private and does not
-            require a public audience.
+        Each session can be private and does not
+        require a public audience.
 
-            Minimum support activity shown for each
-            session:
-
-            <b>${MIN_SUPPORT:.2f}</b>
-
-        </div>
+        Minimum support activity shown for each
+        session:
+        <b>${MIN_SUPPORT:.2f}</b>.
 
     </div>
-    """,
+
+</div>
+""",
     unsafe_allow_html=True
 )
 
 
-st.write("")
-
-
-# =========================
+# =========================================================
 # PROGRESS
-# =========================
+# =========================================================
 
 progress = (
     COMPLETED_STREAMS /
     REQUIRED_STREAMS
 )
 
+
 st.progress(
     progress,
-    text=
-    f"Requirement progress — "
-    f"{COMPLETED_STREAMS} of "
-    f"{REQUIRED_STREAMS} sessions completed"
+    text=(
+        f"Requirement progress — "
+        f"{COMPLETED_STREAMS} of "
+        f"{REQUIRED_STREAMS} sessions completed"
+    )
 )
 
 
-# =========================
-# LIVE CENTER
-# =========================
+# =========================================================
+# MAIN CONTENT
+# =========================================================
 
-left, right = st.columns(
+left_col, right_col = st.columns(
     [1.45, 1],
     gap="large"
 )
 
 
-with left:
+# =========================================================
+# LIVE CENTER
+# =========================================================
+
+with left_col:
 
     st.markdown(
         '<div class="section-title">'
@@ -609,92 +695,100 @@ with left:
         unsafe_allow_html=True
     )
 
-    s1, s2 = st.columns(2)
+    session1, session2 = st.columns(2)
 
 
-    with s1:
+    # -----------------------------------------------------
+    # SESSION 1
+    # -----------------------------------------------------
+
+    with session1:
 
         st.markdown(
             """
-            <div class="stream-card">
+<div class="stream-card">
 
-                <div class="label">
-                    SESSION 01
-                </div>
+    <div class="label">
+        SESSION 01
+    </div>
 
-                <div style="
-                    font-size:20px;
-                    font-weight:750;
-                ">
-                    🔴 Private Live
-                </div>
+    <div style="
+        font-size:20px;
+        font-weight:750;
+        color:#ffffff;
+    ">
+        🔴 Private Live
+    </div>
 
-                <p class="small">
-                    No public audience required.
-                </p>
+    <div class="small">
+        No public audience required.
+    </div>
 
-            </div>
-            """,
+</div>
+""",
             unsafe_allow_html=True
         )
 
         if st.button(
             "🎥 Start Private Live",
-            key="live1",
+            key="start_live",
             use_container_width=True
         ):
 
             st.info(
-                "Prototype action: "
-                "connect this button to your "
-                "real live-stream provider."
+                "Prototype action: connect this button "
+                "to your real live-stream provider."
             )
 
 
-    with s2:
+    # -----------------------------------------------------
+    # SESSION 2
+    # -----------------------------------------------------
+
+    with session2:
 
         st.markdown(
             """
-            <div class="stream-card">
+<div class="stream-card">
 
-                <div class="label">
-                    SESSION 02
-                </div>
+    <div class="label">
+        SESSION 02
+    </div>
 
-                <div style="
-                    font-size:20px;
-                    font-weight:750;
-                ">
-                    📅 Private Live
-                </div>
+    <div style="
+        font-size:20px;
+        font-weight:750;
+        color:#ffffff;
+    ">
+        📅 Private Live
+    </div>
 
-                <p class="small">
-                    No public audience required.
-                </p>
+    <div class="small">
+        No public audience required.
+    </div>
 
-            </div>
-            """,
+</div>
+""",
             unsafe_allow_html=True
         )
 
         if st.button(
             "📅 Schedule Session",
-            key="live2",
+            key="schedule_live",
             use_container_width=True
         ):
 
             st.info(
-                "Prototype action: "
-                "connect this button to your "
-                "scheduling backend."
+                "Prototype action: connect this button "
+                "to your scheduling backend."
             )
 
 
-# =========================
+# =========================================================
 # ACTIVITY
-# =========================
+# =========================================================
 
-with right:
+with right_col:
 
     st.markdown(
         '<div class="section-title">'
@@ -703,70 +797,74 @@ with right:
         unsafe_allow_html=True
     )
 
+
     st.markdown(
         f"""
-        <div class="card">
+<div class="card">
 
-            <div class="label">
-                CURRENT STATUS
-            </div>
+    <div class="label">
+        CURRENT STATUS
+    </div>
 
-            <div style="
-                font-size:21px;
-                font-weight:750;
-            ">
-                Requirements pending
-            </div>
+    <div style="
+        font-size:21px;
+        font-weight:750;
+        color:#ffffff;
+    ">
+        Requirements pending
+    </div>
 
-            <div class="small">
-                Complete the displayed
-                live-session requirements
-                to update the account workflow.
-            </div>
+    <div class="small">
 
-            <hr style="
-                border-color:
-                rgba(145,160,210,.10);
-                margin:18px 0;
-            ">
+        Complete the displayed live-session
+        requirements to update the account workflow.
 
-            <div class="label">
-                SUPPORT THRESHOLD
-            </div>
+    </div>
 
-            <div style="
-                font-size:24px;
-                font-weight:800;
-            ">
-                ${MIN_SUPPORT:.2f}
-            </div>
+    <hr style="
+        border-color:
+        rgba(145,160,210,.10);
+        margin:18px 0;
+    ">
 
-            <div class="small">
-                Minimum per session
-            </div>
+    <div class="label">
+        SUPPORT THRESHOLD
+    </div>
 
-        </div>
-        """,
+    <div style="
+        font-size:24px;
+        font-weight:800;
+        color:#ffffff;
+    ">
+        ${MIN_SUPPORT:.2f}
+    </div>
+
+    <div class="small">
+        Minimum per session
+    </div>
+
+</div>
+""",
         unsafe_allow_html=True
     )
 
 
-# =========================
+# =========================================================
 # FOOTER
-# =========================
+# =========================================================
 
 st.markdown(
     """
-    <div class="footer">
+<div class="footer">
 
-        LiveMind AI · Creator Dashboard Prototype
+    LiveMind AI · Creator Dashboard Prototype
 
-        <br>
+    <br><br>
 
-        Sample financial figures are for
-        interface testing only.
+    Sample financial figures are for
+    interface testing only.
 
-    </div>
-    """,
+</div>
+""",
     unsafe_allow_html=True
 )
