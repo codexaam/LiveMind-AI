@@ -1,82 +1,82 @@
 import streamlit as st
-import textwrap
+import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="حالة الحساب",
     page_icon="🔒",
-    layout="centered",
-    initial_sidebar_state="collapsed"
+    layout="centered"
 )
 
-# =========================
-# CSS
-# =========================
+OWNER_NAME = "صاحب الحساب"
 
-css = """
+html = f"""
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-
-* {
+* {{
     box-sizing: border-box;
-}
+}}
 
-html, body, [class*="css"] {
-    font-family: 'Cairo', sans-serif !important;
-}
+html, body {{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+}}
 
-.stApp {
+body {{
     background:
         radial-gradient(
             circle at 50% 10%,
-            #18243a 0%,
-            #080d17 42%,
+            #1b2940 0%,
+            #090f1b 45%,
             #030509 100%
         );
-    min-height: 100vh;
-}
 
-header {
-    visibility: hidden;
-}
+    font-family: Arial, Tahoma, sans-serif;
 
-.block-container {
-    max-width: 680px !important;
-    padding-top: 80px !important;
-    padding-bottom: 40px !important;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-/* CARD */
+    padding: 25px;
+}}
 
-.account-card {
-    direction: rtl;
-    text-align: center;
+.container {{
+    width: 100%;
+    max-width: 620px;
+}}
 
+.card {{
     background:
         linear-gradient(
             145deg,
-            rgba(28, 36, 52, 0.96),
-            rgba(10, 14, 22, 0.98)
+            #1c2534,
+            #0c111b
         );
 
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.09);
 
-    border-radius: 30px;
+    border-radius: 28px;
 
-    padding: 55px 30px;
+    padding: 55px 28px;
+
+    text-align: center;
 
     box-shadow:
-        0 30px 90px rgba(0,0,0,0.65),
-        inset 0 1px 1px rgba(255,255,255,0.04);
-}
+        0 25px 70px rgba(0,0,0,0.65),
+        inset 0 1px 1px rgba(255,255,255,0.05);
+}}
 
-/* LOCK */
+.lock {{
+    width: 100px;
+    height: 100px;
 
-.lock-circle {
-    width: 105px;
-    height: 105px;
-
-    margin: 0 auto 30px auto;
+    margin: 0 auto 28px;
 
     border-radius: 50%;
 
@@ -84,167 +84,139 @@ header {
     align-items: center;
     justify-content: center;
 
-    background:
-        radial-gradient(
-            circle,
-            #26344b 0%,
-            #121a28 65%,
-            #0b1019 100%
-        );
+    background: #141e2d;
 
-    border: 1px solid rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.12);
 
     box-shadow:
-        0 0 0 10px rgba(255,255,255,0.025),
-        0 0 45px rgba(70,120,200,0.16);
-}
+        0 0 0 9px rgba(255,255,255,0.025),
+        0 0 35px rgba(90,130,190,0.15);
 
-.lock {
-    font-size: 45px;
-    line-height: 1;
-}
+    font-size: 43px;
+}}
 
-/* TITLE */
+.title {{
+    color: white;
 
-.title {
-    color: #ffffff;
+    font-size: 28px;
 
-    font-size: 29px;
-    font-weight: 800;
+    font-weight: 700;
 
-    margin-bottom: 18px;
-}
+    margin-bottom: 20px;
+}}
 
-/* MESSAGE */
-
-.message {
-    color: #c7ceda;
+.message {{
+    color: #c9d0db;
 
     font-size: 18px;
-    font-weight: 400;
 
     line-height: 2;
 
-    margin-bottom: 30px;
-}
+    margin-bottom: 28px;
+}}
 
-.message strong {
-    color: #ffffff;
-    font-weight: 800;
-}
+.name {{
+    color: white;
+    font-weight: 700;
+}}
 
-/* STATUS */
-
-.status {
+.status {{
     display: inline-block;
 
     color: #ffc857;
 
-    background: rgba(255,190,50,0.08);
+    background: rgba(255,193,7,0.08);
 
-    border: 1px solid rgba(255,190,50,0.20);
+    border: 1px solid rgba(255,193,7,0.22);
 
     border-radius: 50px;
 
-    padding: 9px 22px;
+    padding: 9px 20px;
 
     font-size: 14px;
-    font-weight: 700;
-}
 
-/* FOOTER */
+    font-weight: 600;
+}}
 
-.footer {
-    direction: rtl;
-
+.footer {{
     text-align: center;
 
-    color: #697386;
+    color: #6c7686;
 
     font-size: 12px;
 
-    margin-top: 24px;
-}
+    margin-top: 22px;
+}}
 
-/* MOBILE */
+@media (max-width: 500px) {{
 
-@media (max-width: 600px) {
+    body {{
+        padding: 15px;
+    }}
 
-    .block-container {
-        padding-top: 45px !important;
-        padding-left: 18px !important;
-        padding-right: 18px !important;
-    }
-
-    .account-card {
+    .card {{
         padding: 45px 20px;
-        border-radius: 25px;
-    }
+        border-radius: 24px;
+    }}
 
-    .lock-circle {
-        width: 90px;
-        height: 90px;
-    }
+    .lock {{
+        width: 88px;
+        height: 88px;
+        font-size: 38px;
+    }}
 
-    .lock {
-        font-size: 39px;
-    }
+    .title {{
+        font-size: 24px;
+    }}
 
-    .title {
-        font-size: 25px;
-    }
-
-    .message {
+    .message {{
         font-size: 16px;
-    }
-}
+    }}
+}}
 
 </style>
-"""
+</head>
 
-st.markdown(css, unsafe_allow_html=True)
+<body>
 
+<div class="container">
 
-# =========================
-# Account Name
-# =========================
+    <div class="card">
 
-OWNER_NAME = "صاحب الحساب"
+        <div class="lock">
+            🔒
+        </div>
 
+        <div class="title">
+            تم إغلاق الحساب مؤقتًا
+        </div>
 
-# =========================
-# Main Card
-# =========================
+        <div class="message">
+            قام
+            <span class="name">{OWNER_NAME}</span>
+            بإغلاق حسابه مؤقتًا.
+            <br>
+            لا يمكن الوصول إلى محتوى الحساب في الوقت الحالي.
+        </div>
 
-html = f"""
-<div class="account-card">
+        <div class="status">
+            الحساب غير متاح مؤقتًا
+        </div>
 
-    <div class="lock-circle">
-        <div class="lock">🔒</div>
     </div>
 
-    <div class="title">
-        تم إغلاق الحساب مؤقتًا
-    </div>
-
-    <div class="message">
-        قام <strong>{OWNER_NAME}</strong> بإغلاق حسابه مؤقتًا.
-        <br>
-        لا يمكن الوصول إلى محتوى الحساب في الوقت الحالي.
-    </div>
-
-    <div class="status">
-        الحساب غير متاح مؤقتًا
+    <div class="footer">
+        حالة الحساب • تم تحديثها مؤخرًا
     </div>
 
 </div>
 
-<div class="footer">
-    حالة الحساب • تم تحديثها مؤخرًا
-</div>
+</body>
+</html>
 """
 
-st.markdown(
-    textwrap.dedent(html),
-    unsafe_allow_html=True
+components.html(
+    html,
+    height=650,
+    scrolling=False
 )
